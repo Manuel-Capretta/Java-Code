@@ -3,61 +3,39 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args){
         int num = input();
-        spell(num);
+        checkForLastDigit(num);
     }
 
     public static int input(){
         Scanner scan = new Scanner(System.in);
         System.out.println("1 digit int plz:");
-        int Zahl = scan.nextInt();
-        return Zahl;
+        int userNum = scan.nextInt();
+        return userNum;
     }
 
-    public static void spell(int num){
-        switch (num){
-            case 0:
-                System.out.println("This number is named:");
-                System.out.println("Zero");
-                break;
-            case 1:
-                System.out.println("This number is named:");
-                System.out.println("One");
-                break;
-            case 2:
-                System.out.println("This number is named:");
-                System.out.println("Two");
-                break;
-            case 3:
-                System.out.println("This number is named:");
-                System.out.println("Three");
-                break;
-            case 4:
-                System.out.println("This number is named:");
-                System.out.println("Four");
-                break;
-            case 5:
-                System.out.println("This number is named:");
-                System.out.println("Five");
-                break;
-            case 6:
-                System.out.println("This number is named:");
-                System.out.println("Six");
-                break;
-            case 7:
-                System.out.println("This number is named:");
-                System.out.println("Seven");
-                break;
-            case 8:
-                System.out.println("This number is named:");
-                System.out.println("Eight");
-                break;
-            case 9:
-                System.out.println("This number is named:");
-                System.out.println("Nine");
-                break;
-            default:
-                System.out.println("This ain't a 1 digit number pal!");
-                break;
+    public static void checkForLastDigit(int num){
+        if(num%10==0){//check if last digit is 0
+            System.out.println("zero");
+        }else{ //check for the other digits
+            if(num%3==0){
+                System.out.println("three");
+            }else if(num%4==0){
+                System.out.println("four");
+            }else if(num%6==0){
+                System.out.println("six");
+            }else if(num%7==0){
+                System.out.println("seven");
+            }else if(num%8==0){
+                System.out.println("eight");
+            }else if(num%9==0){
+                System.out.println("nine");
+            }else if(num%5==0){
+                System.out.println("five");
+            }else if(num%2==0){
+                System.out.println("two");
+            }else{
+                System.out.println("one");
+            }
         }
     }
 }
