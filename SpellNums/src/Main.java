@@ -20,13 +20,13 @@ public class Main {
         System.out.println(wort);
     }
 
-    private static String numberToWord(int number) {
+    public static String numberToWord(int number) {
         // variable to hold string representation of number
         String words = "";
         String unitsArray[] = { "null", "ein", "zwei", "drei", "vier", "fünf", "sechs",
                 "sieben", "acht", "neun", "zehn", "elf", "zwölf",
                 "dreizehn", "vierzehn", "fünfzehn", "sechzehn", "siebzehn",
-                "achtzehn", "neunzehn" };
+                "achtzehn", "neunzehn" , "zwanzig"};
         String tensArray[] = { "null", "zehn", "zwanzig", "dreissig", "vierzig", "fünfzig",
                 "sechzig", "siebzig", "achzig", "neunzig" };
 
@@ -42,12 +42,12 @@ public class Main {
             // add minus before the number and convert the rest of number
             return "minus " + numberToWord(Integer.parseInt(numberStr));
         }
-        // check if number is divisible by 1 million
+        // check if number is divisible by 1 million and determine its grammar
         if ((number / 1000000) > 0) {
             if(number < 2000000){
                 words += numberToWord(number / 1000000) + "e million ";
                 number %= 1000000;
-            }else{
+            } else {
                 words += numberToWord(number / 1000000) + " millionen ";
                 number %= 1000000;
             }
@@ -64,7 +64,7 @@ public class Main {
         }
         if (number > 0) {
             // check if number is within teens
-            if (number < 20) {
+            if (number < 21) {
                 // get the appropriate value from unit array
                 words += unitsArray[number];
             } else {
