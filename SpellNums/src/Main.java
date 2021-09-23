@@ -33,7 +33,10 @@ public class Main {
         if (number == 0) {
             return "null";
         }
+
+/*---------------------------------------------------------------------------------------------------*/
         // add minus before conversion if the number is less than 0
+        // this part is copied
         if (number < 0) {
             // convert the number to a string
             String numberStr = "" + number;
@@ -42,6 +45,8 @@ public class Main {
             // add minus before the number and convert the rest of number
             return "minus " + numberToWord(Integer.parseInt(numberStr));
         }
+/*---------------------------------------------------------------------------------------------------*/
+
         // check if number is divisible by 1 million and determine its grammar
         if ((number / 1000000) > 0) {
             if(number < 2000000){
@@ -52,18 +57,18 @@ public class Main {
                 number %= 1000000;
             }
         }
-        // check if number is divisible by 1 thousand
+        // check if number is divisible by 1000
         if ((number / 1000) > 0) {
             words += numberToWord(number / 1000) + " tausend ";
             number %= 1000;
         }
-        // check if number is divisible by 1 hundred
+        // check if number is divisible by 100
         if ((number / 100) > 0) {
             words += numberToWord(number / 100) + " hundert ";
             number %= 100;
         }
         if (number > 0) {
-            // check if number is within teens
+            // check if number is within tens
             if (number < 21) {
                 // get the appropriate value from unit array
                 words += unitsArray[number];
