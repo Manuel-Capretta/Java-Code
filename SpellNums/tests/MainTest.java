@@ -5,6 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class MainTest {
     @Test
     void spell_testForRightWord(){
-        //assertEquals("Five", Main.spell(5));
+        //assertEquals("Five", Main.(5));
     }
 }
