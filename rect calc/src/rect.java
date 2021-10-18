@@ -7,11 +7,11 @@ public class rect {
     Color color;
 
 
-    public int area(int l, int w) { //method for calculating area value
+    public int area() { //method for calculating area value
         return l * w;
     }
 
-    public int scope(int l, int w) { //method for calculating scope value
+    public int scope() { //method for calculating scope value
         return 2 * (l * w);
     }
 

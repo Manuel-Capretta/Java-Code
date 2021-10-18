@@ -8,11 +8,11 @@ public class Main {
 
         first_obj.setColor(new Color(69));
 
-        int area = first_obj.area(first_obj.l, first_obj.w); //calc area
-        int scope = first_obj.scope(first_obj.l, first_obj.w); //calc scope
+        int area = first_obj.area(); //calc area
+        int scope = first_obj.scope(); //calc scope
 
-
-
-        System.out.println("Area: " + area + "\n" + "Scope: " + scope + "\n" + "Color: " + first_obj.getColor().toString());
+        System.out.println("Area: " + area + "\n"
+                + "Scope: " + scope + "\n"
+                + "Color: " + first_obj.getColor().toString());
     }
 }
