@@ -15,26 +15,29 @@ public class MainPanelGrafik extends JFrame   // extends heist MainPanel ist ein
     }
 
     // wir brauchen eine Methode "paint" um etwas zeichnen kann
-    public void paint(Graphics g)
-    {
-        g.setColor(new Color(200,0,0));  // Farbe setzten in RGB
-        g.drawRect(10,31,100,100);	   // Zeichnen eines Rechtecks
+    public void paint(Graphics g) {
 
-        g.setColor(new Color(100,100,10));
-        g.fillRect(300,300,100,100);
 
-        g.setColor(new Color(250,50,50));
-        g.fillOval(200,200,100,100);
+
+        //Solution 1: Lines
+        /*for(int i = 0; i < 500; i+= 25){
+            g.drawLine(i, 0, i, 500);
+            g.drawLine(0, i, 500, i);
+        }*/
+
+
+
+        //Solution 2: Rectangles
+        for(int a = 25; a < 475; a+=50) {
+            for(int b= 25; b < 475; b+=50) {
+                g.setColor(new Color(255, 0, 0));
+                g.fillRect(a, b, 50, 50);
+                g.setColor(new Color(0, 0, 0));
+                g.drawRect(a, b, 50, 50);
+            }
+        }
+
+
+
     }
-
-    public static void Main(String[] args) {
-
-        MainPanelGrafik p = new MainPanelGrafik();   // hier instanziieren wir das Panel Objekt (Zeichenfenster)
-
-        //p.paint(null);                // wir rufen die Zeichnungsfunktion auf.
-
-    }
-
-
-
 }
