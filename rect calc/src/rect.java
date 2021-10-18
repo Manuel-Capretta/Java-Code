@@ -15,6 +15,7 @@ public class rect {
         return 2 * (l * w);
     }
 
+    //Color stuff
     public Color getColor() {
         return color;
     }
