@@ -11,7 +11,8 @@ public class Main {
         int area = first_obj.area(); //calc area
         int scope = first_obj.scope(); //calc scope
 
-        System.out.println("Area: " + area + "\n"
+        System.out.println(
+                "Area: " + area + "\n"
                 + "Scope: " + scope + "\n"
                 + "Color: " + first_obj.getColor().toString());
     }
