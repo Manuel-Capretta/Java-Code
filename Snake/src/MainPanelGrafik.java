@@ -26,10 +26,10 @@ public class MainPanelGrafik extends JFrame   // extends -> PanelGrafik child of
         int counter = 10; //counter for nums in tiles. Starts with 10 due to simplicity
         int aAddon = (halfTileLength/5)*4; //somewhat middles x axis
         int bAddon = (halfTileLength/5)*6; //somewhat middles y axis
-        int drawField[][] = new int[10][10]; //save field in 2d arr
+        int drawField[][] = new int[fieldSizeInTiles][fieldSizeInTiles]; //save field in 2d arr
 
-        for(int row = 0; row < 10; row++) {
-            for(int column = 0; column < 10; column++) {
+        for(int row = 0; row < fieldSizeInTiles; row++) {
+            for(int column = 0; column < fieldSizeInTiles; column++) {
                 drawField[row][column] = counter; //save every tile in the array
                 g.setColor(new Color(136, 0, 255));
                 g.fillRect(column*50+25, row*50+25, halfTileLength *2, halfTileLength *2);
@@ -42,16 +42,12 @@ public class MainPanelGrafik extends JFrame   // extends -> PanelGrafik child of
         }
 
         //print field positions
-        for (int a = 0; a < 10; a++) {
-            for (int b = 0; b < 10; b++){
+        for (int a = 0; a < fieldSizeInTiles; a++) {
+            for (int b = 0; b < fieldSizeInTiles; b++){
                 System.out.print(drawField[a][b] + "  ");
             }
             System.out.println("\n");
         }//
-
-        System.out.println(drawField[5][2]);
-
-
 
         /*------------------2D Array--------------------------------*
         /*int twoDArr[][] = new int[3][3];
