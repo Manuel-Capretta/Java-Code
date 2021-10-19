@@ -6,9 +6,9 @@ public class MainPanelGrafik extends JFrame{   // extends -> PanelGrafik child o
 
 
     //Variables
-    int fieldSizeInTiles = 10;
-    int halfTileLength = 25;
-    int fieldSizeInPx = halfTileLength*22; //Always big enough for 100 tiles
+    int fieldSizeInTiles = 40; //40x40 grid
+    int halfTileLength = 10; //20px tile length
+    int fieldSizeInPx = 1000; //1000x1000 window
 
     public MainPanelGrafik() {
         setTitle("Snake");
@@ -42,6 +42,14 @@ public class MainPanelGrafik extends JFrame{   // extends -> PanelGrafik child o
                 counter++;
             }
         }
+
+        //generate food item
+        food apple = new food();
+        //generate 2 random positions
+        int appleX = apple.rand(fieldSizeInTiles);
+        int appleY = apple.rand(fieldSizeInTiles);
+        //spawn food item
+        apple.spawn(appleX, appleY, g, halfTileLength*2);
 
         //print field positions
         for (int a = 0; a < fieldSizeInTiles; a++) {
