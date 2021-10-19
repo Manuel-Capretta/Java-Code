@@ -21,6 +21,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
     //Test
     int xPos = 1;
     int yPos = 2;
+    int appleCounter = 0;
 
     public PlayingField() {
         setTitle("Snake Game Board");
@@ -31,7 +32,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
 
         addKeyListener(this);
 
-        Timer t = new Timer(500, this);
+        Timer t = new Timer(150, this);
         t.start();
     }
 
@@ -99,7 +100,25 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
             yPos++;
         }
 
-        g.drawRect(xPos*halfTileLength*2+margin, yPos*halfTileLength*2+margin, halfTileLength*2, halfTileLength*2);
+        //draw snake head
+        g.fillRect(xPos*halfTileLength*2+margin, yPos*halfTileLength*2+margin, halfTileLength*2, halfTileLength*2);
+
+        System.out.println("\nSnake Positions: \n" +
+                "X: " + xPos +
+                "\nY: " + yPos);
+
+        //If snake hits apple
+        if(xPos == appleX && yPos == appleY){
+            appleCounter++;
+            System.out.println("\n Apples eaten: "+ appleCounter + "\n");
+
+            foodSpawned = false;
+        }
+        String a2 = Integer.toString(appleCounter); //convert the counter into a string
+        g.setColor(new Color(255, 255, 255));
+        g.fillRect(10, 50, 30, 30);
+        g.setColor(new Color(255, 0, 0));
+        g.drawString(a2, 10, 50); //show counter on the tile
 
         /*-------------------------2D Array-------------------------*
         /*int twoDArr[][] = new int[3][3];
