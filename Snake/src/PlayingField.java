@@ -1,11 +1,26 @@
 import javax.swing.*;
 import java.awt.*;  //Abstract Window Toolkit
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class PlayingField extends JFrame{   // extends -> PanelGrafik child of Jframe
+public class PlayingField extends JFrame implements KeyListener, ActionListener {   // extends -> Playing field child of Jframe
     //Variables
     int fieldSizeInTiles = 40; //40x40 grid
     int halfTileLength = 10; //20px tile length
     int fieldSizeInPx = 900; //1000x1000 window
+    boolean gridDrawn = false; //checking if grid is drawn
+
+    //generate food item
+    tile apple = new tile();//generate new food item object
+    int appleX;//positions
+    int appleY;
+    boolean foodSpawned = false; //checking if food is there
+
+    //Test
+    int xPos = 1;
+    int yPos = 2;
 
     public PlayingField() {
         setTitle("Snake Game Board");
@@ -13,12 +28,16 @@ public class PlayingField extends JFrame{   // extends -> PanelGrafik child of J
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        addKeyListener(this);
+
+        Timer t = new Timer(200, this);
+        t.start();
     }
 
     // draw with paint method
     public void paint(Graphics g) {
-
-        int counter = 10; //counter for nums in tiles. Starts with 10 due to simplicity
+        int counter = 10; //counter for numbers in tiles. Starts with 10 due to simplicity
         /*int aAddon = (halfTileLength/5)*4; //somewhat middles x-axis
         /int bAddon = (halfTileLength/5)*6; //somewhat middles y-axis*/
         int drawField[][] = new int[fieldSizeInTiles][fieldSizeInTiles]; //save field in 2d arr -> [row][column]
@@ -26,39 +45,50 @@ public class PlayingField extends JFrame{   // extends -> PanelGrafik child of J
         int margin = 50; //a little margin for better visibility
 
         //Creation of Grid & Array
-        for(int row = 0; row < fieldSizeInTiles; row++) {
-            for(int column = 0; column < fieldSizeInTiles; column++) {
+        for (int row = 0; row < fieldSizeInTiles; row++) {
+            for (int column = 0; column < fieldSizeInTiles; column++) {
                 drawField[row][column] = counter; //save every tile in the array
                 //Draw Grid Squares (no tile objects)
                 g.setColor(new Color(59, 59, 56)); //smokey
-                g.fillRect(column*multi+margin, row*multi+margin, halfTileLength *2, halfTileLength *2);
+                g.fillRect(column * multi + margin, row * multi + margin, halfTileLength * 2, halfTileLength * 2);
                 g.setColor(new Color(0, 0, 0));
-                g.drawRect(column*multi+margin, row*multi+margin, halfTileLength *2, halfTileLength *2);
-                /*String a2 = Integer.toString(counter); //convert the counter into a string
-                /g.drawString(a2, column*multi+margin+aAddon, row*multi+margin+bAddon); //show counter on the tile*/
+                g.drawRect(column * multi + margin, row * multi + margin, halfTileLength * 2, halfTileLength * 2);
+            /*String a2 = Integer.toString(counter); //convert the counter into a string
+            /g.drawString(a2, column*multi+margin+aAddon, row*multi+margin+bAddon); //show counter on the tile*/
                 counter++;
             }
         }
 
-        //generate food item
-        tile apple = new tile();
-        //generate 2 random positions
-        int appleX = apple.rand(fieldSizeInTiles);
-        int appleY = apple.rand(fieldSizeInTiles);
-        //spawn food item
-        apple.spawn(appleX, appleY, g, halfTileLength*2, margin);
-        /*print out apples position in array
-        System.out.print(drawField[appleX][0] + "\n");
-        System.out.print(drawField[0][appleY] + "\n");
-        System.out.print(drawField[appleX][appleY] + "\n");*/
+        if(!gridDrawn) {
+            //print field positions into console
+            for (int a = 0; a < fieldSizeInTiles; a++) {
+                for (int b = 0; b < fieldSizeInTiles; b++) {
+                    System.out.print(drawField[a][b] + "  ");
+                }
+                System.out.println("\n");
+            }//
+            gridDrawn = true;
+        }
 
-        //print field positions into console
-        for (int a = 0; a < fieldSizeInTiles; a++) {
-            for (int b = 0; b < fieldSizeInTiles; b++){
-                System.out.print(drawField[a][b] + "  ");
-            }
-            System.out.println("\n");
-        }//
+
+        if(!foodSpawned) {
+            //generate 2 random positions
+            appleX = apple.rand(fieldSizeInTiles);
+            appleY = apple.rand(fieldSizeInTiles);
+            //spawn food item
+            apple.spawn(appleX, appleY, g, halfTileLength*2, margin);
+            foodSpawned = true;
+            /*print out apples position in array
+            System.out.print(drawField[appleX][0] + "\n");
+            System.out.print(drawField[0][appleY] + "\n");
+            System.out.print(drawField[appleX][appleY] + "\n");*/
+        } else {
+            apple.spawn(appleX, appleY, g, halfTileLength*2, margin);
+        }
+
+        g.drawRect(xPos*halfTileLength*2+margin, yPos*halfTileLength*2+margin, halfTileLength*2, halfTileLength*2);
+
+
 
         /*-------------------------2D Array-------------------------*
         /*int twoDArr[][] = new int[3][3];
@@ -77,5 +107,49 @@ public class PlayingField extends JFrame{   // extends -> PanelGrafik child of J
             }
         }*/
         /*----------------------------------------------------------*/
+    }
+
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    boolean keyDown = false;
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_DOWN && !keyDown){
+            yPos++;
+            keyDown = true;
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_UP && !keyDown){
+            yPos--;
+            keyDown = true;
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_LEFT && !keyDown) {
+            xPos--;
+            keyDown = true;
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT && !keyDown){
+            xPos++;
+            keyDown = true;
+        }
+    }
+
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Clock's ticking");
+        keyDown = false;
+        repaint();
     }
 }
