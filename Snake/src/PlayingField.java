@@ -86,9 +86,20 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
             apple.spawn(appleX, appleY, g, halfTileLength*2, margin);
         }
 
+        //movements
+        if(keyDown){
+            yPos++;
+        } else if(keyUp){
+            yPos--;
+        } else if(keyRight){
+            xPos++;
+        } else if(keyLeft){
+            xPos--;
+        } else {
+            yPos++;
+        }
+
         g.drawRect(xPos*halfTileLength*2+margin, yPos*halfTileLength*2+margin, halfTileLength*2, halfTileLength*2);
-
-
 
         /*-------------------------2D Array-------------------------*
         /*int twoDArr[][] = new int[3][3];
@@ -124,25 +135,32 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_DOWN && !keyDown){
-            yPos++;
             keyDown = true;
+            keyUp = false;
+            keyLeft = false;
+            keyRight = false;
         }
 
         if(e.getKeyCode() == KeyEvent.VK_UP && !keyUp){
-            yPos--;
+            keyDown = false;
             keyUp = true;
+            keyLeft = false;
+            keyRight = false;
         }
 
         if(e.getKeyCode() == KeyEvent.VK_LEFT && !keyLeft) {
-            xPos--;
+            keyDown = false;
+            keyUp = false;
             keyLeft = true;
+            keyRight = false;
         }
 
         if(e.getKeyCode() == KeyEvent.VK_RIGHT && !keyRight){
-            xPos++;
+            keyDown = false;
+            keyUp = false;
+            keyLeft = false;
             keyRight = true;
         }
-
     }
 
 
@@ -154,10 +172,6 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Clock's ticking");
-        keyDown = false; //in order to prevent big jumps
-        keyUp = false; //in order to prevent big jumps
-        keyLeft = false; //in order to prevent big jumps
-        keyRight = false; //in order to prevent big jumps
         repaint();
     }
 }
