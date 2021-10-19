@@ -1,17 +1,14 @@
 import javax.swing.*;
 import java.awt.*;  //Abstract Window Toolkit
 
-
-public class MainPanelGrafik extends JFrame{   // extends -> PanelGrafik child of Jframe
-
-
+public class PlayingField extends JFrame{   // extends -> PanelGrafik child of Jframe
     //Variables
     int fieldSizeInTiles = 40; //40x40 grid
     int halfTileLength = 10; //20px tile length
-    int fieldSizeInPx = 1000; //1000x1000 window
+    int fieldSizeInPx = 900; //1000x1000 window
 
-    public MainPanelGrafik() {
-        setTitle("Snake");
+    public PlayingField() {
+        setTitle("Snake Game Board");
         setSize(fieldSizeInPx, fieldSizeInPx);
         setResizable(false);
         setVisible(true);
@@ -22,17 +19,17 @@ public class MainPanelGrafik extends JFrame{   // extends -> PanelGrafik child o
     public void paint(Graphics g) {
 
         int counter = 10; //counter for nums in tiles. Starts with 10 due to simplicity
-        int aAddon = (halfTileLength/5)*4; //somewhat middles x axis
-        int bAddon = (halfTileLength/5)*6; //somewhat middles y axis
+        /*int aAddon = (halfTileLength/5)*4; //somewhat middles x-axis
+        /int bAddon = (halfTileLength/5)*6; //somewhat middles y-axis*/
         int drawField[][] = new int[fieldSizeInTiles][fieldSizeInTiles]; //save field in 2d arr -> [row][column]
         int multi = halfTileLength*2; //Multiply by total tile length
-        int margin = 40; //a little margin for better visibility
+        int margin = 50; //a little margin for better visibility
 
         //Creation of Grid & Array
         for(int row = 0; row < fieldSizeInTiles; row++) {
             for(int column = 0; column < fieldSizeInTiles; column++) {
                 drawField[row][column] = counter; //save every tile in the array
-                //Draw Squares
+                //Draw Grid Squares (no tile objects)
                 g.setColor(new Color(59, 59, 56)); //smokey
                 g.fillRect(column*multi+margin, row*multi+margin, halfTileLength *2, halfTileLength *2);
                 g.setColor(new Color(0, 0, 0));
@@ -44,14 +41,18 @@ public class MainPanelGrafik extends JFrame{   // extends -> PanelGrafik child o
         }
 
         //generate food item
-        food apple = new food();
+        tile apple = new tile();
         //generate 2 random positions
         int appleX = apple.rand(fieldSizeInTiles);
         int appleY = apple.rand(fieldSizeInTiles);
         //spawn food item
-        apple.spawn(appleX, appleY, g, halfTileLength*2);
+        apple.spawn(appleX, appleY, g, halfTileLength*2, margin);
+        /*print out apples position in array
+        System.out.print(drawField[appleX][0] + "\n");
+        System.out.print(drawField[0][appleY] + "\n");
+        System.out.print(drawField[appleX][appleY] + "\n");*/
 
-        //print field positions
+        //print field positions into console
         for (int a = 0; a < fieldSizeInTiles; a++) {
             for (int b = 0; b < fieldSizeInTiles; b++){
                 System.out.print(drawField[a][b] + "  ");
@@ -59,7 +60,7 @@ public class MainPanelGrafik extends JFrame{   // extends -> PanelGrafik child o
             System.out.println("\n");
         }//
 
-        /*------------------2D Array--------------------------------*
+        /*-------------------------2D Array-------------------------*
         /*int twoDArr[][] = new int[3][3];
 
         int counter = 1;
