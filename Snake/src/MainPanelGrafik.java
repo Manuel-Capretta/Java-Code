@@ -26,19 +26,19 @@ public class MainPanelGrafik extends JFrame{   // extends -> PanelGrafik child o
         int bAddon = (halfTileLength/5)*6; //somewhat middles y axis
         int drawField[][] = new int[fieldSizeInTiles][fieldSizeInTiles]; //save field in 2d arr -> [row][column]
         int multi = halfTileLength*2; //Multiply by total tile length
-        int margin = 25; //a little margin for better visibility
+        int margin = 40; //a little margin for better visibility
 
         //Creation of Grid & Array
         for(int row = 0; row < fieldSizeInTiles; row++) {
             for(int column = 0; column < fieldSizeInTiles; column++) {
                 drawField[row][column] = counter; //save every tile in the array
                 //Draw Squares
-                g.setColor(new Color(136, 0, 255));
+                g.setColor(new Color(59, 59, 56)); //smokey
                 g.fillRect(column*multi+margin, row*multi+margin, halfTileLength *2, halfTileLength *2);
                 g.setColor(new Color(0, 0, 0));
                 g.drawRect(column*multi+margin, row*multi+margin, halfTileLength *2, halfTileLength *2);
-                String a2 = Integer.toString(counter); //convert the counter into a string
-                g.drawString(a2, column*multi+margin+aAddon, row*multi+margin+bAddon); //show counter on the tile
+                /*String a2 = Integer.toString(counter); //convert the counter into a string
+                /g.drawString(a2, column*multi+margin+aAddon, row*multi+margin+bAddon); //show counter on the tile*/
                 counter++;
             }
         }

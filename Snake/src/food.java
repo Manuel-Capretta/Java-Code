@@ -16,8 +16,8 @@ public class food {
     }
 
     public void spawn(int x, int y, Graphics g, int size){
-        int margin = 25; //a little margin for better visibility
-        g.setColor(new Color(5, 150, 5));
+        int margin = 40; //a little margin for better visibility
+        g.setColor(new Color(215, 10, 40));
         g.fillOval(x*size+margin, y*size+margin, size, size);
     }
 }
