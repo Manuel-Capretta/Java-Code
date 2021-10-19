@@ -2,17 +2,16 @@ import javax.swing.*;
 import java.awt.*;  //Abstract Window Toolkit
 
 
-public class MainPanelGrafik extends JFrame   // extends -> PanelGrafik child of Jframe
-{
+public class MainPanelGrafik extends JFrame{   // extends -> PanelGrafik child of Jframe
+
 
     //Variables
     int fieldSizeInTiles = 10;
     int halfTileLength = 25;
     int fieldSizeInPx = halfTileLength*22; //Always big enough for 100 tiles
 
-    public MainPanelGrafik()
-    {
-        setTitle("Mein erstes GUI Fenster");
+    public MainPanelGrafik() {
+        setTitle("Snake");
         setSize(fieldSizeInPx, fieldSizeInPx);
         setResizable(false);
         setVisible(true);
@@ -22,21 +21,23 @@ public class MainPanelGrafik extends JFrame   // extends -> PanelGrafik child of
     // draw with paint method
     public void paint(Graphics g) {
 
-
         int counter = 10; //counter for nums in tiles. Starts with 10 due to simplicity
         int aAddon = (halfTileLength/5)*4; //somewhat middles x axis
         int bAddon = (halfTileLength/5)*6; //somewhat middles y axis
         int drawField[][] = new int[fieldSizeInTiles][fieldSizeInTiles]; //save field in 2d arr
+        int multi = halfTileLength*2; //Multiply by total tile length
+        int margin = 25; //a little margin for better visibility
 
+        //Creation of Grid & Array
         for(int row = 0; row < fieldSizeInTiles; row++) {
             for(int column = 0; column < fieldSizeInTiles; column++) {
                 drawField[row][column] = counter; //save every tile in the array
                 g.setColor(new Color(136, 0, 255));
-                g.fillRect(column*50+25, row*50+25, halfTileLength *2, halfTileLength *2);
+                g.fillRect(column*multi+margin, row*multi+margin, halfTileLength *2, halfTileLength *2);
                 g.setColor(new Color(0, 0, 0));
-                g.drawRect(column*50+25, row*50+25, halfTileLength *2, halfTileLength *2);
+                g.drawRect(column*multi+margin, row*multi+margin, halfTileLength *2, halfTileLength *2);
                 String a2 = Integer.toString(counter);
-                g.drawString(a2, column*50+25+aAddon, row*50+25+bAddon);
+                g.drawString(a2, column*multi+margin+aAddon, row*multi+margin+bAddon);
                 counter++;
             }
         }
