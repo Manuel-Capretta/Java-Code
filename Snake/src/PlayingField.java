@@ -31,7 +31,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
 
         addKeyListener(this);
 
-        Timer t = new Timer(200, this);
+        Timer t = new Timer(500, this);
         t.start();
     }
 
@@ -116,7 +116,11 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
 
     }
 
-    boolean keyDown = false;
+    boolean keyDown = false; //in order to prevent big jumps
+    boolean keyUp = false; //in order to prevent big jumps
+    boolean keyLeft = false; //in order to prevent big jumps
+    boolean keyRight = false; //in order to prevent big jumps
+
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_DOWN && !keyDown){
@@ -124,20 +128,21 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
             keyDown = true;
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_UP && !keyDown){
+        if(e.getKeyCode() == KeyEvent.VK_UP && !keyUp){
             yPos--;
-            keyDown = true;
+            keyUp = true;
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_LEFT && !keyDown) {
+        if(e.getKeyCode() == KeyEvent.VK_LEFT && !keyLeft) {
             xPos--;
-            keyDown = true;
+            keyLeft = true;
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT && !keyDown){
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT && !keyRight){
             xPos++;
-            keyDown = true;
+            keyRight = true;
         }
+
     }
 
 
@@ -149,7 +154,10 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Clock's ticking");
-        keyDown = false;
+        keyDown = false; //in order to prevent big jumps
+        keyUp = false; //in order to prevent big jumps
+        keyLeft = false; //in order to prevent big jumps
+        keyRight = false; //in order to prevent big jumps
         repaint();
     }
 }
