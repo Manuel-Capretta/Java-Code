@@ -2,8 +2,7 @@ import javax.swing.*;
 import java.awt.*;  //Abstract Window Toolkit
 
 public class food {
-    int size = 20;
-    int score = 0;
+    //int score = 0;
 
     public int rand(int field_size) {
         int min = 0;
