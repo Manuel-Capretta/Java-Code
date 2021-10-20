@@ -18,7 +18,8 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
     int appleY;
     boolean foodSpawned = false; //checking if food is there
 
-    //Test
+    //snake
+    snake snake = new snake();
     int xPos = 1;
     int yPos = 2;
     int appleCounter = 0;
@@ -101,7 +102,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
         }
 
         //draw snake head
-        g.fillRect(xPos*halfTileLength*2+margin, yPos*halfTileLength*2+margin, halfTileLength*2, halfTileLength*2);
+        snake.spawn(xPos, yPos, g, halfTileLength*2, margin);
 
         System.out.println("\nSnake Positions: \n" +
                 "X: " + xPos +
@@ -114,11 +115,9 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
 
             foodSpawned = false;
         }
-        String a2 = Integer.toString(appleCounter); //convert the counter into a string
-        g.setColor(new Color(255, 255, 255));
-        g.fillRect(10, 50, 30, 30);
-        g.setColor(new Color(255, 0, 0));
-        g.drawString(a2, 10, 50); //show counter on the tile
+
+        //Score
+        apple.score(appleCounter, g);
 
         /*-------------------------2D Array-------------------------*
         /*int twoDArr[][] = new int[3][3];
