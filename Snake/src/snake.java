@@ -17,7 +17,7 @@ public class snake {
     public int score(int counter, Graphics g){
         String a2 = Integer.toString(counter); //convert the counter into a string
         g.setColor(new Color(0, 0, 0));
-        g.fillRect(8, 33, 900, 25);
+        g.fillRect(8, 33, 800, 25);
         g.setColor(new Color(255, 255, 255));
         g.drawString(a2, 16, 50); //show counter on the tile
 

@@ -121,12 +121,22 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
         yPos = snake.checkIfHitWallOnY(yPos);
 
         //Score
-        //display snake head infos on the game board
         int arrayLoopSize = snake.score(appleCounter, g);//displays the number of apples eaten
-        g.drawString("Snake Head x-Position: " + xArr[0], 100, 50); //show counter on the tile
-        g.drawString("Snake Head y-Position: " + yArr[0], 300, 50); //show counter on the tile
-        g.drawString("Snake Head is on tile: " + drawField[xPos][yPos], 500, 50); //show counter on the tile
-        g.drawString("Body parts: " + appleCounter, 700, 50); //show counter on the tile
+        //display snake head info on the game board
+        g.drawString("Snake Head x-Position: " + xArr[0], 100, 50); //show snake head info on the board
+        g.drawString("Snake Head y-Position: " + yArr[0], 300, 50);
+        g.drawString("Snake Head is on tile: " + drawField[xPos][yPos], 500, 50);
+        g.drawString("Body parts: " + appleCounter, 700, 50);
+        //display control info
+        g.setColor(new Color(0, 0, 0));
+        g.fillRect(8, 50, 50, 205);
+        g.setColor(new Color(255, 255, 255));
+        g.drawString("WASD", 10, 150); //show control info on the board
+        g.drawString("OR", 10, 200); //show control info on the board
+        g.drawString("Arrows", 10, 250); //show control info on the board
+
+
+
 
         //draw new body part
         for(int j = 0; j < arrayLoopSize; j++) {//draw as many body parts as apples were eaten
@@ -157,28 +167,28 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_DOWN && !keyDown){
+        if(e.getKeyCode() == KeyEvent.VK_DOWN && !keyDown || e.getKeyCode() == KeyEvent.VK_S && !keyDown) {
             keyDown = true;
             keyUp = false;
             keyLeft = false;
             keyRight = false;
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_UP && !keyUp){
+        if(e.getKeyCode() == KeyEvent.VK_UP && !keyUp  || e.getKeyCode() == KeyEvent.VK_W && !keyUp){
             keyDown = false;
             keyUp = true;
             keyLeft = false;
             keyRight = false;
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_LEFT && !keyLeft) {
+        if(e.getKeyCode() == KeyEvent.VK_LEFT && !keyLeft || e.getKeyCode() == KeyEvent.VK_A && !keyLeft ) {
             keyDown = false;
             keyUp = false;
             keyLeft = true;
             keyRight = false;
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT && !keyRight){
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT && !keyRight  || e.getKeyCode() == KeyEvent.VK_D && !keyRight){
             keyDown = false;
             keyUp = false;
             keyLeft = false;
