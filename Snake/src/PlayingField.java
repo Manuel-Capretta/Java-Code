@@ -24,6 +24,11 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
     int yPos = 2;
     int appleCounter = 0;
 
+    //Snake body
+    int xArr[] = new int[40];
+    int yArr[] = new int[40];
+    int test = 4;
+
     public PlayingField() {
         setTitle("Snake Game Board");
         setSize(fieldSizeInPx, fieldSizeInPx);
@@ -72,7 +77,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
             gridDrawn = true;
         }
 
-
+        //Spawn food
         if(!foodSpawned) {
             //generate 2 random positions
             appleX = apple.rand(fieldSizeInTiles);
@@ -104,41 +109,58 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
         //draw snake head
         snake.spawn(xPos, yPos, g, halfTileLength*2, margin);
 
-        System.out.println("\nSnake Positions: \n" +
-                "X: " + xPos +
-                "\nY: " + yPos);
-
         //If snake hits apple
         if(xPos == appleX && yPos == appleY){
             appleCounter++;
             System.out.println("\n Apples eaten: "+ appleCounter + "\n");
-
             foodSpawned = false;
         }
 
+        //check if snake hits wall on x or y
+        xPos = snake.checkIfHitWallOnX(xPos);
+        yPos = snake.checkIfHitWallOnY(yPos);
+
         //Score
-        apple.score(appleCounter, g);
+        snake.score(appleCounter, g);
 
-        /*-------------------------2D Array-------------------------*
-        /*int twoDArr[][] = new int[3][3];
+        //Make two tile trail the head
+        xArr[0] = xPos;
+        yArr[0] = yPos;
 
-        int counter = 1;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                twoDArr[i][j] = counter;
-                counter++;
-            }
+        System.out.println("\nSnake Positions:" +
+                "\nHead X: " + xArr[0] +
+                "\nHead Y: " + yArr[0] +
+                "\nBody1 X: " + xArr[1] +
+                "\nBody1 Y: " + yArr[1] +
+                "\nBody2 X: " + xArr[2] +
+                "\nBody2 Y: " + yArr[2]);
+
+        //1st body part
+        g.setColor(new Color(120, 200, 120));
+        g.fillRect(xArr[1] * halfTileLength*2 + margin, yArr[1] * halfTileLength*2 + margin, halfTileLength*2, halfTileLength*2);
+
+        //2nd body part
+        g.fillRect(xArr[2] * halfTileLength*2 + margin, yArr[2] * halfTileLength*2 + margin, halfTileLength*2, halfTileLength*2);
+
+        //3rd body part
+        g.fillRect(xArr[3] * halfTileLength*2 + margin, yArr[3] * halfTileLength*2 + margin, halfTileLength*2, halfTileLength*2);
+
+        //4th body part
+        g.fillRect(xArr[4] * halfTileLength*2 + margin, yArr[4] * halfTileLength*2 + margin, halfTileLength*2, halfTileLength*2);
+
+        for(int i = test; i > 0; i--){
+            yArr[i] = yArr[i-1];
+            xArr[i] = xArr[i-1];
         }
 
-        for (int a = 0; a < 3; a++) {
-            for (int b = 0; b < 3; b++){
-                System.out.println(twoDArr[a][b]);
-            }
-        }*/
-        /*----------------------------------------------------------*/
+
+            /*yArr[2] = yArr[1];
+            xArr[2] = xArr[1];
+            yArr[1] = yArr[0];
+            xArr[1] = xArr[0];*/
+
+
     }
-
-
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -193,3 +215,21 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
         repaint();
     }
 }
+
+/*-------------------------2D Array-------------------------*
+/*int twoDArr[][] = new int[3][3];
+
+int counter = 1;
+for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+        twoDArr[i][j] = counter;
+        counter++;
+    }
+}
+
+for (int a = 0; a < 3; a++) {
+    for (int b = 0; b < 3; b++){
+        System.out.println(twoDArr[a][b]);
+    }
+}*/
+/*----------------------------------------------------------*/
