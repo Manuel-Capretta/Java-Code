@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 public class PlayingField extends JFrame implements KeyListener, ActionListener {   // extends -> Playing field child of Jframe
     //Variables
     int fieldSizeInTiles = 40; //40x40 grid
-    int halfTileLength = 10; //20px tile length
+    int tileSize = 20; //20px tile length
     int fieldSizeInPx = 900; //1000x1000 window
     boolean gridDrawn = false; //checking if grid is drawn
 
@@ -22,12 +22,12 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
     snake snake = new snake();
     int xPos = 1;
     int yPos = 2;
-    int appleCounter = 0;
+    int appleCounter = 1; //start with 1 body part
 
-    //Snake body
-    int xArr[] = new int[40];
-    int yArr[] = new int[40];
-    int test = 4;
+    //Body
+    //array contain as many indexes as there are tiles in the grid
+    int xArr[] = new int[fieldSizeInTiles*fieldSizeInTiles];
+    int yArr[] = new int[fieldSizeInTiles*fieldSizeInTiles];
 
     public PlayingField() {
         setTitle("Snake Game Board");
@@ -48,8 +48,12 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
         /*int aAddon = (halfTileLength/5)*4; //somewhat middles x-axis
         /int bAddon = (halfTileLength/5)*6; //somewhat middles y-axis*/
         int drawField[][] = new int[fieldSizeInTiles][fieldSizeInTiles]; //save field in 2d arr -> [row][column]
-        int multi = halfTileLength*2; //Multiply by total tile length
-        int margin = 50; //a little margin for better visibility
+        int multi = tileSize; //Multiply by total tile length
+        int margin = 70; //a little margin for better visibility
+
+        //put head position in array
+        xArr[0] = xPos;
+        yArr[0] = yPos;
 
         //Creation of Grid & Array
         for (int row = 0; row < fieldSizeInTiles; row++) {
@@ -57,9 +61,9 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
                 drawField[row][column] = counter; //save every tile in the array
                 //Draw Grid Squares (no tile objects)
                 g.setColor(new Color(59, 59, 56)); //smokey
-                g.fillRect(column * multi + margin, row * multi + margin, halfTileLength * 2, halfTileLength * 2);
+                g.fillRect(column * multi + margin, row * multi + margin, tileSize, tileSize);
                 g.setColor(new Color(0, 0, 0));
-                g.drawRect(column * multi + margin, row * multi + margin, halfTileLength * 2, halfTileLength * 2);
+                g.drawRect(column * multi + margin, row * multi + margin, tileSize, tileSize);
             /*String a2 = Integer.toString(counter); //convert the counter into a string
             /g.drawString(a2, column*multi+margin+aAddon, row*multi+margin+bAddon); //show counter on the tile*/
                 counter++;
@@ -83,14 +87,10 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
             appleX = apple.rand(fieldSizeInTiles);
             appleY = apple.rand(fieldSizeInTiles);
             //spawn food item
-            apple.spawn(appleX, appleY, g, halfTileLength*2, margin);
+            apple.spawn(appleX, appleY, g, tileSize, margin);
             foodSpawned = true;
-            /*print out apples position in array
-            System.out.print(drawField[appleX][0] + "\n");
-            System.out.print(drawField[0][appleY] + "\n");
-            System.out.print(drawField[appleX][appleY] + "\n");*/
         } else {
-            apple.spawn(appleX, appleY, g, halfTileLength*2, margin);
+            apple.spawn(appleX, appleY, g, tileSize, margin);
         }
 
         //movements
@@ -107,7 +107,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
         }
 
         //draw snake head
-        snake.spawn(xPos, yPos, g, halfTileLength*2, margin);
+        snake.spawn(xPos, yPos, g, tileSize, margin);
 
         //If snake hits apple
         if(xPos == appleX && yPos == appleY){
@@ -121,45 +121,28 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
         yPos = snake.checkIfHitWallOnY(yPos);
 
         //Score
-        snake.score(appleCounter, g);
+        //display snake head infos on the game board
+        int arrayLoopSize = snake.score(appleCounter, g);//displays the number of apples eaten
+        g.drawString("Snake Head x-Position: " + xArr[0], 100, 50); //show counter on the tile
+        g.drawString("Snake Head y-Position: " + yArr[0], 300, 50); //show counter on the tile
+        g.drawString("Snake Head is on tile: " + drawField[xPos][yPos], 500, 50); //show counter on the tile
+        g.drawString("Body parts: " + appleCounter, 700, 50); //show counter on the tile
 
-        //Make two tile trail the head
-        xArr[0] = xPos;
-        yArr[0] = yPos;
-
-        System.out.println("\nSnake Positions:" +
-                "\nHead X: " + xArr[0] +
-                "\nHead Y: " + yArr[0] +
-                "\nBody1 X: " + xArr[1] +
-                "\nBody1 Y: " + yArr[1] +
-                "\nBody2 X: " + xArr[2] +
-                "\nBody2 Y: " + yArr[2]);
-
-        //1st body part
-        g.setColor(new Color(120, 200, 120));
-        g.fillRect(xArr[1] * halfTileLength*2 + margin, yArr[1] * halfTileLength*2 + margin, halfTileLength*2, halfTileLength*2);
-
-        //2nd body part
-        g.fillRect(xArr[2] * halfTileLength*2 + margin, yArr[2] * halfTileLength*2 + margin, halfTileLength*2, halfTileLength*2);
-
-        //3rd body part
-        g.fillRect(xArr[3] * halfTileLength*2 + margin, yArr[3] * halfTileLength*2 + margin, halfTileLength*2, halfTileLength*2);
-
-        //4th body part
-        g.fillRect(xArr[4] * halfTileLength*2 + margin, yArr[4] * halfTileLength*2 + margin, halfTileLength*2, halfTileLength*2);
-
-        for(int i = test; i > 0; i--){
+        //draw new body part
+        for(int j = 0; j < arrayLoopSize; j++) {//draw as many body parts as apples were eaten
+            snake.spawnBody(xArr[j], yArr[j], g, tileSize, margin);
+        }
+        //pass down positions
+        for(int i = arrayLoopSize; i > 0; i--){//pass down values into the array as far as apple were eaten
             yArr[i] = yArr[i-1];
             xArr[i] = xArr[i-1];
         }
 
-
-            /*yArr[2] = yArr[1];
-            xArr[2] = xArr[1];
-            yArr[1] = yArr[0];
-            xArr[1] = xArr[0];*/
-
-
+        for(int j = 0; j < arrayLoopSize; j++) {//show all the positions in the console
+            System.out.println("\nSnake Position:" + j +
+                    "\nHead X: " + xArr[j] +
+                    "\nHead Y: " + yArr[j]);
+        }
     }
 
     @Override
@@ -211,8 +194,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Clock's ticking");
-        repaint();
+        repaint(); //refresh
     }
 }
 

@@ -9,7 +9,6 @@ public class tile {
         int xRandom;
         max = 10;//field_size;
         //Generate random int value
-        System.out.println("Random value in int from "+min+" to "+max+ ":");
         xRandom = (int)Math.floor(Math.random()*(max-min+1)+min);
         return xRandom;
     }

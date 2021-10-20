@@ -9,13 +9,19 @@ public class snake {
         g.fillRect(x * size + margin, y * size + margin, size, size);
     }
 
-    public void score(int counter, Graphics g){
+    public void spawnBody(int x, int y, Graphics g, int size, int margin) {
+        g.setColor(new Color(80, 150, 80));
+        g.fillRect(x * size + margin, y * size + margin, size, size);
+    }
+
+    public int score(int counter, Graphics g){
         String a2 = Integer.toString(counter); //convert the counter into a string
         g.setColor(new Color(0, 0, 0));
-        g.fillRect(8, 50, 25, 25);
+        g.fillRect(8, 33, 900, 25);
         g.setColor(new Color(255, 255, 255));
-        g.drawString(a2, 16, 67); //show counter on the tile
+        g.drawString(a2, 16, 50); //show counter on the tile
 
+        return counter;
     }
 
     public int checkIfHitWallOnX(int snakeX) {
@@ -48,12 +54,5 @@ public class snake {
 
         g.setColor(new Color(255, 255, 255));
         g.fillRect(xArr[0] * size + margin, yArr[0] * size + margin, size, size);
-    }*/
-
-    /*public void addBody(int xPos, int yPos, Graphics g, int size, int margin, int score){
-
-
-        g.setColor(new Color(120, 200, 120));
-        g.fillRect(xArr[1] * size + margin, yArr[1] * size + margin, size, size);
     }*/
 }
