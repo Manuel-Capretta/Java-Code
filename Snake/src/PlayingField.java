@@ -7,8 +7,8 @@ import java.awt.event.KeyListener;
 
 public class PlayingField extends JFrame implements KeyListener, ActionListener {   // extends -> Playing field child of Jframe
     //Field Variables
-    int fieldSizeInTiles = 40; //40x40 grid
-    int tileSize = 20; //20px tile length
+    int fieldSizeInTiles = 10; //40x40 grid
+    int tileSize = 80; //20px tile length
     int fieldSizeInPx = 900; //1000x1000 window
     boolean gridDrawn = false; //checking if grid is drawn
     boolean fieldDrawn = false;
@@ -45,7 +45,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
 
         addKeyListener(this);
 
-        Timer t = new Timer(150, this);
+        Timer t = new Timer(200, this);
         t.start();
     }
 
@@ -96,8 +96,8 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
         //Spawn food
         if(!foodSpawned) {
             //generate 2 random positions
-            appleX = apple.rand(fieldSizeInTiles);
-            appleY = apple.rand(fieldSizeInTiles);
+            appleX = apple.rand(fieldSizeInTiles, xArr, yArr, bodyPart);
+            appleY = apple.rand(fieldSizeInTiles, xArr, yArr, bodyPart);
             //spawn food item
             apple.spawn(appleX, appleY, draw, tileSize, margin);
             //apple has spawned
@@ -134,7 +134,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
             timeIsTicking = false;
 
             //Score calculating
-            if(timeUsed < 10){
+            if(timeUsed < fieldSizeInTiles/2){
                 Score += 100;
             } else {
                 Score += 50;
