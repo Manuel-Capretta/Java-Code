@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;  //Abstract Window Toolkit
 
 public class tile {
