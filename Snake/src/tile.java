@@ -7,7 +7,7 @@ public class tile {
         int min = 0;
         int max;
         int xRandom;
-        max = 10;//field_size;
+        max = field_size-1;//field_size;
         //Generate random int value
         xRandom = (int)Math.floor(Math.random()*(max-min+1)+min);
         return xRandom;
@@ -15,6 +15,6 @@ public class tile {
 
     public void spawn(int x, int y, Graphics draw, int size, int margin){
         draw.setColor(new Color(215, 10, 40));
-        draw.fillOval(x*size+margin, y*size+margin, size, size);
+        draw.fillOval(x*size+margin, y*size+margin, size-2, size-2);
     }
 }
