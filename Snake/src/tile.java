@@ -13,8 +13,8 @@ public class tile {
         return xRandom;
     }
 
-    public void spawn(int x, int y, Graphics g, int size, int margin){
-        g.setColor(new Color(215, 10, 40));
-        g.fillOval(x*size+margin, y*size+margin, size, size);
+    public void spawn(int x, int y, Graphics draw, int size, int margin){
+        draw.setColor(new Color(215, 10, 40));
+        draw.fillOval(x*size+margin, y*size+margin, size, size);
     }
 }
