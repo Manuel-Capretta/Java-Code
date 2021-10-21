@@ -5,22 +5,22 @@ public class tile {
     public int rand(int field_size, int xArr[], int yArr[], int arrSize) {
         int min = 0;
         int max;
-        int xRandom;
+        int randNum;
         max = field_size-1;//field_size;
         //Generate random int value
-        xRandom = (int)Math.floor(Math.random()*(max-min+1)+min);
+        randNum = (int)Math.floor(Math.random()*(max-min+1)+min);
 
         //check if the apple has spawned in the snake
         for(int i = 0; i < arrSize; i++){
-            if(xRandom == xArr[i]){
-                rand(field_size, xArr, yArr, arrSize);
+            if(randNum == xArr[i]){
+                randNum = (int)Math.floor(Math.random()*(max-min+1)+min);
             }
-            if(xRandom == yArr[i]){
-                rand(field_size, xArr, yArr, arrSize);
+            if(randNum == yArr[i]){
+                randNum = (int)Math.floor(Math.random()*(max-min+1)+min);
             }
         }
 
-        return xRandom;
+        return randNum;
     }
 
     public void spawn(int x, int y, Graphics draw, int size, int margin){

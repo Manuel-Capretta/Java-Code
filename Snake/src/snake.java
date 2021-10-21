@@ -29,11 +29,11 @@ public class snake {
 
     public int checkIfHitWallOnX(int snakeX, int fieldSize) {
         if (snakeX < 0) {
-            snakeX = fieldSize-1;
-            //System.exit(1);
+            //snakeX = fieldSize-1;
+            System.exit(1);
         } else if (snakeX > fieldSize-1) {
-            snakeX = 0;
-            //System.exit(1);
+            //snakeX = 0;
+            System.exit(1);
         } else {
             return snakeX;
         }
@@ -42,11 +42,11 @@ public class snake {
 
     public int checkIfHitWallOnY(int snakeY, int fieldSize) {
         if (snakeY < 0) {
-            snakeY = fieldSize-1;
-            //System.exit(1);
+            //snakeY = fieldSize-1;
+            System.exit(1);
         } else if (snakeY > fieldSize-1) {
-            snakeY = 0;
-            //System.exit(1);
+            //snakeY = 0;
+            System.exit(1);
         } else {
             return snakeY;
         }
