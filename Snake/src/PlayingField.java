@@ -7,8 +7,8 @@ import java.awt.event.KeyListener;
 
 public class PlayingField extends JFrame implements KeyListener, ActionListener {   // extends -> Playing field child of Jframe
     //Field Variables
-    int fieldSizeInTiles = 10; //40x40 grid
-    int tileSize = 80; //20px tile length
+    int fieldSizeInTiles = 20; //grid
+    int tileSize = (40/fieldSizeInTiles)*20; //tile length -> formula works for 10x10, 20x20 and 40x40 grids
     int fieldSizeInPx = 900; //1000x1000 window
     boolean gridDrawn = false; //checking if grid is drawn
     boolean fieldDrawn = false;
@@ -36,6 +36,9 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
     int xArr[] = new int[arraySize];
     int yArr[] = new int[arraySize];
 
+    //Gui
+    GUI gui = new GUI();
+
     public PlayingField() {
         setTitle("Snake Game Board");
         setSize(fieldSizeInPx, fieldSizeInPx);
@@ -54,7 +57,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
         int counter = 0; //counter for numbers in tiles. Starts with 10 due to simplicity
         int drawField[][] = new int[fieldSizeInTiles][fieldSizeInTiles]; //save field in 2d arr -> [row][column]
         int multi = tileSize; //Multiply by total tile length
-        int margin = 70; //a little margin for better visibility
+        int margin = 60; //a little margin for better visibility
 
         //put head position in array
         xArr[0] = xPos;
@@ -150,21 +153,8 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
 
         //Score
         int arrayLoopSize = bodyPart;
-        //display snake head info on the game board
-        draw.setColor(new Color(0, 0, 0));
-        draw.fillRect(90, 33, 725, 25);
-        draw.setColor(new Color(255, 255, 255));
-        draw.drawString("Snake Head x-Position: " + xArr[0], 100, 50); //show snake head info on the board
-        draw.drawString("Snake Head y-Position: " + yArr[0], 300, 50);
-        draw.drawString("Snake Head is on tile: " + drawField[xPos][yPos], 500, 50);
-        draw.drawString("Body parts: " + bodyPart, 700, 50);
-        //display control info
-        draw.setColor(new Color(0, 0, 0));
-        draw.fillRect(8, 135, 50, 120);
-        draw.setColor(new Color(255, 255, 255));
-        draw.drawString("WASD", 10, 150); //show control info on the board
-        draw.drawString("OR", 10, 200); //show control info on the board
-        draw.drawString("Arrows", 10, 250); //show control info on the board
+        gui.drawSnakeHead(xArr, yArr, bodyPart, draw, xPos, yPos, drawField);
+        gui.drawControllInfo(draw);
 
         //draw new body part
         draw.setColor(new Color(80, 150, 80));
