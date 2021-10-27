@@ -1,6 +1,31 @@
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GUI {
+public class GUI{
+    GUI(){
+        JFrame f=new JFrame("Button Example");
+        JButton b=new JButton(new ImageIcon("D:\\icon.png"));
+        b.setBounds(50,70,100, 40);
+        f.add(b);
+        f.setSize(100,40);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        b.setText("Play Snake");
+
+        b.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                PlayingField p = new PlayingField();
+            }
+        });
+        f.add(b);f.add(b);
+        f.setSize(200,200);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+
     public void drawSnakeHead(int xArr[], int yArr[], int bodyPart, Graphics draw, int xPos, int yPos, int drawField[][]){
         //display snake head info on the game board
         draw.setColor(new Color(0, 0, 0));

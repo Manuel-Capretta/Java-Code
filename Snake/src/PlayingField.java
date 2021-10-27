@@ -110,7 +110,7 @@ public class PlayingField extends JFrame implements KeyListener, ActionListener 
 
         //spawn snakes tail
         draw.setColor(new Color(59, 59, 56)); //smokey
-        snake.spawn(xArr[bodyPart], yArr[bodyPart], draw, tileSize, margin);
+        snake.spawnBody(xArr[bodyPart], yArr[bodyPart], draw, tileSize, margin);
 
         //movements
         if(keyDown){
