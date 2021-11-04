@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class main {
-
     public static void main(String[] args) {
         //Arrays
         String mArr[] = {"mm", "cm", "dm", "m", "km"};
