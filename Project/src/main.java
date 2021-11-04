@@ -4,9 +4,9 @@ public class main {
     public static void main(String[] args) {
         //Arrays
         String mArr[] = {"mm", "cm", "dm", "m", "km"};
-        int mArrNum[] = {0, 10, 100, 1000, 1000000};
+        int mArrNum[] = {1, 10, 100, 1000, 1000000};
         String lArr[] = {"ml", "cl", "dl", "l", "hl"};
-        int lArrNum[] = {0, 10, 100, 1000, 100000};
+        int lArrNum[] = {1, 10, 100, 1000, 100000};
 
         //Inputs
         System.out.print("Unit: ");
