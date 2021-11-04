@@ -3,6 +3,12 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) {
+        //Arrays
+        String mArr[] = {"mm", "cm", "dm", "m", "km"};
+        int mArrNum[] = {0, 10, 100, 1000, 1000000};
+        String lArr[] = {"ml", "cl", "dl", "l", "hl"};
+        int lArrNum[] = {0, 10, 100, 1000, 100000};
+
         //Inputs
         System.out.print("Unit: ");
         String unit = unit();
@@ -10,8 +16,8 @@ public class main {
         int value = value();
 
         //Calculation
-        int newValue[] = calc(unit, value);
-        output(newValue, unit);
+        int newValue[] = calc(unit, value, mArr, lArr, mArrNum, lArrNum);
+        output(newValue, unit, mArr, lArr);
     }
 
     private static String unit() {
@@ -32,11 +38,7 @@ public class main {
         return num;
     }
 
-    public static int[] calc(String unit, int value){
-        String mArr[] = {"mm", "cm", "dm", "m", "km"};
-        int mArrNum[] = {0, 10, 100, 1000, 1000000};
-        String lArr[] = {"ml", "cl", "dl", "l", "hl"};
-        int lArrNum[] = {0, 10, 100, 1000, 100000};
+    public static int[] calc(String unit, int value, String mArr[], String lArr[], int mArrNum[], int lArrNum[]){
 
         //Solution variables
         int solArr[] = new int[2];
@@ -55,19 +57,19 @@ public class main {
 
         //recalculate into biggest unit
         for(int a = 0; a < 5; a++) {
-            unitInt = a; //save array position for output
             if(unit.equals(mArr[a])){
-                for (int j = 4; j > -1; j--) {
+                for (int j = 4; j >= 0; j--) {
                     if (value % mArrNum[j] == 0) {
                         value /= mArrNum[j];
+                        unitInt = j; //save array position for output
                         break;
                     }
                 }
             }else if(unit.equals(lArr[a])){
-                unitInt = a; //save array position for output
-                for (int j = 4; j > -1; j--) {
+                for (int j = 4; j >= 0; j--) {
                     if (value % lArrNum[j] == 0) {
                         value /= lArrNum[j];
+                        unitInt = j; //save array position for output
                         break;
                     }
                 }
@@ -80,9 +82,7 @@ public class main {
         return solArr;
     }
 
-    public static void output(int solArr[], String unit){
-        String mArr[] = {"mm", "cm", "dm", "m", "km"};
-        String lArr[] = {"ml", "cl", "dl", "l", "hl"};
+    public static void output(int solArr[], String unit, String mArr[], String lArr[]){
 
         int unitInt = solArr[1];
 
