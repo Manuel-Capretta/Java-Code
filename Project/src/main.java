@@ -43,31 +43,31 @@ public class main {
         int solArr[] = new int[2];
         int unitInt = 0;
 
-        //recalculate into the smallest unit
+        //convert into the smallest unit
         for(int i = 0; i < 5; i++){
-            if(unit.equals(mArr[i])){
-                value = value * mArrNum[i];
+            if(unit.equals(mArr[i])){ //check which unit we're using
+                value *= mArrNum[i]; //convert value to mm
                 break;
-            } else if(unit.equals(lArr[i])){
-                value = value * mArrNum[i];
+            } else if(unit.equals(lArr[i])){ //check which unit we're using
+                value *= mArrNum[i]; //convert value to mm
                 break;
             }
         }
 
-        //recalculate into biggest unit
+        //convert into the biggest possible unit
         for(int a = 0; a < 5; a++) {
-            if(unit.equals(mArr[a])){
+            if(unit.equals(mArr[a])){ //check which unit we're using
                 for (int j = 4; j >= 0; j--) {
-                    if (value % mArrNum[j] == 0) {
-                        value /= mArrNum[j];
+                    if (value % mArrNum[j] == 0) { //check for biggest number that %=0
+                        value /= mArrNum[j]; //make valua as small as possible
                         unitInt = j; //save array position for output
                         break;
                     }
                 }
             }else if(unit.equals(lArr[a])){
-                for (int j = 4; j >= 0; j--) {
-                    if (value % lArrNum[j] == 0) {
-                        value /= lArrNum[j];
+                for (int j = 4; j >= 0; j--) { //check which unit we're using
+                    if (value % lArrNum[j] == 0) { //check for biggest number that %=0
+                        value /= lArrNum[j]; //make valua as small as possible
                         unitInt = j; //save array position for output
                         break;
                     }
@@ -87,10 +87,10 @@ public class main {
 
         //Check for used unit and go on from there
         for(int i = 0; i < 5; i++){
-            if(unit.equals(mArr[i])){
+            if(unit.equals(mArr[i])){ //check which unit we're using
                 System.out.println(solArr[0]+ " " + mArr[unitInt]);
                 break;
-            } else if(unit.equals(lArr[i])){
+            } else if(unit.equals(lArr[i])){ //check which unit we're using
                 System.out.println(solArr[0]+ " " + lArr[unitInt]);
                 break;
             }
